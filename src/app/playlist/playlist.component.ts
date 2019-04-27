@@ -18,6 +18,7 @@ export class PlaylistComponent implements OnInit {
   public title = 'spotify-frontend';
 
   public songList: SongItem[] = [];
+  public playlistId = this.router.url.substr(1);
 
   constructor(
     private readonly spotifyService: SpotifyService,
@@ -25,20 +26,25 @@ export class PlaylistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.startVoteStream();
     const playlistId = this.router.url.substr(1);
     this.spotifyService.getVoteStream(playlistId);
     this.populateSongList();
   }
 
   private async populateSongList() {
-    const playlistId = this.router.url.substr(1);
-    const newSongObj = await this.spotifyService.getPlaylist(playlistId) as any;
+    const newSongObj = await this.spotifyService.getPlaylist(this.playlistId) as any;
     console.log(newSongObj);
     this.songList = newSongObj.songs;
   }
 
   public updateThreshold(newThreshold) {
     console.log(newThreshold);
+  }
+
+  private startVoteStream() {
+    const source = this.spotifyService.getVoteStream(this.playlistId);
+    
   }
 
 }

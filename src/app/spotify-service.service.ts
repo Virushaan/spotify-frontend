@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 const apiUrl = 'https://box.drafly.net:8000';
 
@@ -7,6 +8,8 @@ const apiUrl = 'https://box.drafly.net:8000';
   providedIn: 'root'
 })
 export class SpotifyService {
+
+  onVote = new Subject();
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +37,8 @@ export class SpotifyService {
 
   public getVoteStream(playlistId: string) {
     const source = new EventSource(`${apiUrl}/stream?playlist=${playlistId}`);
-    source.onmessage = (arg) => console.log(arg.data);
+    source.onmessage = (arg) => {
+      this.onVote.next(arg.data);
+    };
   }
 }
