@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core/src/render3/jit/compiler_
 
 export interface SongItem {
   id: string;
-  vote: number;
+  votes: number;
 }
 
 @Component({
@@ -37,7 +37,7 @@ export class PlaylistComponent implements OnInit {
       if (this.songList.findIndex(arg => arg.id === newSongId) === -1) {
         this.addToSongList({
           id: newSongId,
-          vote: 1
+          votes: 1
         });
         // this.songList.unshift();
         // this.songList.push({
@@ -58,11 +58,33 @@ export class PlaylistComponent implements OnInit {
   private async populateSongList() {
     const newSongObj = await this.spotifyService.getPlaylist(this.playlistId) as any;
     console.log(newSongObj);
-    this.songList = newSongObj.songs;
+    this.songList = newSongObj.songs.map(arg => ({
+      id: arg.id,
+      votes: parseInt(arg.votes, 10)
+    })).sort((a, b) => b.votes - a.votes);
+    console.log('onInit load', this.songList);
   }
 
   public updateThreshold(newThreshold) {
     console.log(newThreshold);
+  }
+
+  public incrementVote(songId: string) {
+    console.log('INCREMENT SONGID', songId);
+    const songIndex = this.songList.findIndex(arg => arg.id === songId);
+    console.log(this.songList[songIndex]);
+    console.log(this.songList, 'start');
+    this.songList[songIndex].votes += 1;
+    this.songList.sort((a, b) => b.votes - a.votes);
+    this.songList = Array.from(this.songList);
+    console.log(this.songList, 'end');
+    // this.songList = Object.assign({}, this.songList);
+    // this.changeDetectionRef.detectChanges();
+  }
+
+  trackByFn(index, item) {
+    // console.log('trackby', item);
+    return item.id; // or item.id
   }
 
 }

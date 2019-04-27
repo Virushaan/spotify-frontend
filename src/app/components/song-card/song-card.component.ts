@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SpotifyService } from 'src/app/spotify-service.service';
@@ -13,6 +13,8 @@ import { filter } from 'rxjs/operators';
 export class SongCardComponent implements OnInit, OnChanges {
 
   @Input() public song: SongItem;
+  @Output() public addedVote = new EventEmitter();
+
   public sanitizedSongId: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl('');
   public clicked = false;
 
@@ -28,7 +30,7 @@ export class SongCardComponent implements OnInit, OnChanges {
     .pipe(
       filter(songId => songId === this.song.id)
     ).subscribe(vote => {
-      this.song.vote += 1;
+      this.addedVote.emit(vote as string);
       this.whenVotedFor();
       console.log('got vote from socket', vote);
     });
