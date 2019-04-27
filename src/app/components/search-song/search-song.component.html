@@ -9,7 +9,8 @@
     <mat-autocomplete
       #auto="matAutocomplete">
       <mat-option 
-        *ngFor="let state of filteredStates | async" 
+        *ngFor="let state of filteredStates | async"
+        (click)="addSong(state)"
         [value]=state.name>
         <img height="20px" src={{state.album.images[2].url}}/>
         <p>{{state.name}}</p>

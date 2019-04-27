@@ -50,6 +50,10 @@ export class SearchSongComponent implements OnInit {
     });
   }
 
+  public addSong(song) {
+    console.log(song);
+  }
+
   public async search(query) {
     const songs = await this.spotifyService.search(query);
     console.log('SONGS', songs);
