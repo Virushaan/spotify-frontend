@@ -29,7 +29,7 @@ export class SongCardComponent implements OnInit, OnChanges {
     ).subscribe(vote => {
       this.whenVotedFor();
       console.log(vote);
-    })
+    });
   }
 
   private whenVotedFor() {
