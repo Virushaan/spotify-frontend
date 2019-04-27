@@ -88,4 +88,15 @@ export class SpotifyService {
       }
     }).toPromise();
   }
+
+  public async addSongsToPlaylist(playlistId, authToken, uris) {
+    return this.http.post(`${spotifyUrl}/v1/playlists/${playlistId}/tracks`,{}, {
+      params: {
+        uris: uris.join(',')
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      },
+    }).toPromise();
+  }
 }
