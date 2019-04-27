@@ -11,8 +11,10 @@
       <mat-option 
         *ngFor="let state of filteredStates | async" 
         [value]=state.name>
-        {{state.name}}
+        <p>{{state.name}}</p>
+        <p *ngFor="let artist of state.artists">{{artist.name}}</p>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 </div>
+<button (click)="search()">search!</button>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SongSuggestion } from './components/search-song/search-song.component';
 
-const apiUrl = 'http://7a3e0a49.ngrok.io';
+const apiUrl = 'http://d58fcb12.ngrok.io';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,19 @@ export class SpotifyService {
   public async createPlaylist() {
     const playlistId = await this.http.post(`${apiUrl}/create`, {}).toPromise();
     console.log(playlistId);
+  }
+
+  public async vote(playlistId: string, songId: string) {
+    const voted = await this.http.post(`${apiUrl}/vote`, {
+      playlist: playlistId,
+      song: songId
+    },
+    {responseType: 'text'}
+    ).toPromise();
+    console.log('voted', voted);
+  }
+
+  public async search(query: string): Promise<any> {
+    return this.http.post(`${apiUrl}/spotify/search`, {query}).toPromise();
   }
 }
