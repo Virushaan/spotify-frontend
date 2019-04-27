@@ -77,9 +77,13 @@ export class PlaylistComponent implements OnInit {
     console.log(this.songList, 'start');
     this.songList[songIndex].votes += 1;
     const oldSongOrder = this.songList.map((s) => s.id);
+    const newSongOrder = Array.from(this.songList).sort((a, b) => b.votes - a.votes);
+    const changed = newSongOrder.filter((s, i) => (oldSongOrder[i] !== s.id));
+    console.log('CHANGED', changed);
+    changed.forEach(arg => {
+      this.spotifyService.hideNewCard(arg.id);
+    });
     this.songList.sort((a, b) => b.votes - a.votes);
-    const changed = this.songList.filter((s, i) => (oldSongOrder[i] !== s.id));
-
   }
 
   // trackByFn(index, item) {

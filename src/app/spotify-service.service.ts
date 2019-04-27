@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 const apiUrl = 'http://70fd5054.ngrok.io';
 
@@ -10,6 +10,21 @@ const apiUrl = 'http://70fd5054.ngrok.io';
 export class SpotifyService {
 
   onVote = new Subject();
+
+  private showSource = new BehaviorSubject('default message');
+  public showCard = this.showSource.asObservable();
+
+  private hideSource = new BehaviorSubject('default message');
+  public hideCard = this.hideSource.asObservable();
+
+  showNewCard(message: string) {
+    this.showSource.next(message);
+  }
+
+  hideNewCard(message: string) {
+    this.hideSource.next(message);
+  }
+
 
   constructor(private http: HttpClient) { }
 

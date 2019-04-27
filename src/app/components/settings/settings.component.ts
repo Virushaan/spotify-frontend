@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {coerceNumberProperty} from '@angular/cdk/coercion';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +16,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public updateThreshold(newThreshold) {
-    this.thresholdUpdated.emit(this.thresholdValue)
+    this.thresholdUpdated.emit(this.thresholdValue);
   }
 
 }

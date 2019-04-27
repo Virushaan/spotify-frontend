@@ -4,29 +4,53 @@ import { Router } from '@angular/router';
 import { SpotifyService } from 'src/app/spotify-service.service';
 import { SongItem } from 'src/app/playlist/playlist.component';
 import { filter } from 'rxjs/operators';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
 
-const fadeInAnimation =
-    // trigger name for attaching this animation to an element using the [@triggerName] syntax
-    trigger('fadeInAnimation', [
-
-        // route 'enter' transition
-        transition(':enter', [
-
-            // css styles at start of transition
-            style({ opacity: 0 }),
-
-            // animation and styles at end of transition
-            animate('2s', style({ opacity: 1 }))
-        ]),
-    ]);
+const animateTime = '65ms';
+const timeoutTime = 65;
 
 @Component({
   selector: 'app-song-card',
   templateUrl: './song-card.component.html',
   styleUrls: ['./song-card.component.scss'],
-  animations: [fadeInAnimation],
-  host: { '[@fadeInAnimation]': '' }
+  animations: [
+    trigger('changeDivSize', [
+      state('initial', style({
+        height: '0px',
+        opacity: '0%',
+      })),
+      state('final', style({
+        height: '80px',
+        opacity: '100%'
+      })),
+    transition('initial=>final', animate(animateTime)),
+    transition('final=>initial', animate(animateTime))
+  ]),
+    trigger('changeIframeSize', [
+      state('initial', style({
+        height: '0px',
+        opacity: '0%',
+      })),
+      state('final', style({
+        height: '80px',
+        opacity: '100%'
+      })),
+    transition('initial=>final', animate(animateTime)),
+    transition('final=>initial', animate(animateTime))
+  ]),
+    trigger('hideValue', [
+      state('initial', style({
+        display: 'none'
+      })),
+      state('final', style({
+        display: 'block'
+      })),
+    transition('initial=>final', animate(animateTime)),
+    transition('final=>initial', animate(animateTime))
+  ]),
+],
+  // host: { '[@changeDivSize]': 'currentState' }
 })
 export class SongCardComponent implements OnInit, OnChanges {
 
@@ -35,6 +59,7 @@ export class SongCardComponent implements OnInit, OnChanges {
 
   public sanitizedSongId: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl('');
   public clicked = false;
+  public currentState = 'initial';
 
   constructor(
     private readonly sanitizer: DomSanitizer,
@@ -44,6 +69,7 @@ export class SongCardComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
+    this.currentState = 'final';
     this.spotifyService.onVote
     .pipe(
       filter(songId => songId === this.song.id)
@@ -52,7 +78,26 @@ export class SongCardComponent implements OnInit, OnChanges {
       this.whenVotedFor();
       console.log('got vote from socket', vote);
     });
+
+    this.spotifyService.hideCard.subscribe(arg => {
+      console.log('hideme', arg);
+      if (arg === this.song.id) {
+        console.log('TOHIDE', arg);
+        this.hideItem();
+      }
+    });
   }
+
+  private hideItem() {
+    this.currentState = 'initial';
+    setTimeout(() => this.currentState = 'final', timeoutTime);
+  }
+
+  private showItem() {
+    this.currentState = 'final';
+    setTimeout(() => this.currentState = 'initial', timeoutTime);
+  }
+
 
   private whenVotedFor() {
     this.clicked = false;
