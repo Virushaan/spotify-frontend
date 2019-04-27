@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 const apiUrl = 'http://localhost:5000';
-const spotifyUrl = 'https://accounts.spotify.com';
+const spotifyUrl = 'https://api.spotify.com';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +60,7 @@ export class SpotifyService {
     };
   }
 
-  public getApiToken(playlistId: string) {
+  public async getApiToken(playlistId: string) {
     const body = new URLSearchParams();
     return this.http.post(`${spotifyUrl}/authorize`, {
       params: {
@@ -68,7 +68,24 @@ export class SpotifyService {
         response_type: 'token',
         redirect_uri: window.location.href,
         state: playlistId,
+        scope: 'playlist-modify-public'
       },
-    });
+    }).toPromise();
+  }
+
+  public async getUserId(authToken: string) {
+    return this.http.get(`${spotifyUrl}/v1/me`, {headers: {
+      Authorization: `Bearer ${authToken}`
+    }}).toPromise();
+  }
+
+  public async createSpotifyPlaylist(userId, playlistName, authToken) {
+    return this.http.post(`${spotifyUrl}/v1/users/${userId}/playlists`, {
+      name: playlistName
+    }, {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }).toPromise();
   }
 }

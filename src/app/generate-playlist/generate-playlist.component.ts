@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SpotifyService } from '../spotify-service.service';
+
+interface Hash {
+  access_token: string;
+  token_type: string;
+  expires_in: string;
+  state: string;
+}
 
 @Component({
   selector: 'app-generate-playlist',
@@ -6,10 +15,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./generate-playlist.component.scss']
 })
 export class GeneratePlaylistComponent implements OnInit {
-
-  constructor() { }
+  private hashes: Partial<Hash> = {}
+  private userId: string;
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly spotifyService: SpotifyService
+  ) { }
 
   ngOnInit() {
+    this.route.fragment.subscribe((fragment: string) => {
+      fragment.split('&')
+        .map(value => {
+          const pair = value.split('=');
+          this.hashes[pair[0]] = pair[1];
+        });
+      this.getUserId(this.hashes.access_token);
+      console.log(this.hashes);
+    });
   }
+
+  public async getUserId(authToken) {
+    const response = await this.spotifyService.getUserId(authToken);
+    this.userId = (response as any).id;
+    this.createPlaylist();
+  }
+
+  public async createPlaylist() {
+    const response = await this.spotifyService.createSpotifyPlaylist(this.userId, 'testPlaylist', this.hashes.access_token);
+    console.log('created playlist', response);
+    // this.addSongs((response as any).id);
+  }
+
+  // public async addSongs
 
 }
