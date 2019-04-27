@@ -1,5 +1,16 @@
+@keyframes wobble {
+    0% {transform: rotate(9deg);}
+    50% {transform: rotate(7deg);}
+    100% {transform: rotate(9deg);}
+}
+
 h1 {
-    transform: rotate(8deg);
+    margin-top: -10px;
+    font-size: 60px;
+    animation-name: wobble;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
 }
 
 div.landing {

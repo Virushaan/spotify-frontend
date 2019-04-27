@@ -2,6 +2,32 @@
     width: 400px;
 }
 
+.threshold {
+    font-family: sans-serif;
+}
+
+.slider {
+    margin-top: 15px;
+    -webkit-appearance: none;
+    width: 500px;
+    height: 7px;
+    border-radius: 5px;
+    background: #eee;
+    border: 1px solid #ccc;
+    outline: none;
+    // opacity: 0.7;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background: #1DB954;
+    border: 1px solid #10B050;
+}
+
 .settings-container {
     display: flex;
     flex-direction: column;

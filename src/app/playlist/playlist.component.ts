@@ -21,6 +21,7 @@ export class PlaylistComponent implements OnInit {
 
   public songList: SongItem[] = [];
   public playlistId = this.router.url.substr(1);
+  public threshold = 100;
 
   constructor(
     private readonly spotifyService: SpotifyService,
@@ -67,7 +68,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   public updateThreshold(newThreshold) {
-    console.log(newThreshold);
+    this.threshold = newThreshold;
   }
 
   public incrementVote(songId: string) {
