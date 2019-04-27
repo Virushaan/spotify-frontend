@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {coerceNumberProperty} from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-settings',
@@ -18,6 +17,10 @@ export class SettingsComponent implements OnInit {
 
   public updateThreshold(newThreshold) {
     this.thresholdUpdated.emit(this.thresholdValue)
+  }
+
+  public makePlaylist() {
+    console.log('Making a playlist');
   }
 
 }

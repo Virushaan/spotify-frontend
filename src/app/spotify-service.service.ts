@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
-const apiUrl = 'http://70fd5054.ngrok.io';
+const apiUrl = 'http://d33f25c4.ngrok.io';
+const spotifyUrl = 'https://accounts.spotify.com';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,17 @@ export class SpotifyService {
     source.onmessage = (arg) => {
       this.onVote.next(arg.data);
     };
+  }
+
+  public getApiToken(playlistId: string) {
+    const body = new URLSearchParams();
+    return this.http.post(`${spotifyUrl}/authorize`, {
+      params: {
+        client_id: 'd9682bef66264be29d0a69b1b9ce81f1',
+        response_type: 'token',
+        redirect_uri: window.location.href,
+        state: playlistId,
+      },
+    });
   }
 }
