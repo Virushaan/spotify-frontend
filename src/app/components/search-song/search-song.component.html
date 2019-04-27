@@ -1,10 +1,9 @@
 <div class="search-song-container">
-  <mat-form-field>
+  
     <input 
-      type="text" 
-      matInput 
+      type="text"
       [formControl]="searchControl"
-      placeholder="Search song..." 
+      placeholder="Search song..."
       [matAutocomplete]="auto">
     <mat-autocomplete
       #auto="matAutocomplete">
@@ -17,6 +16,5 @@
         <small>{{getArtistsString(state.artists)}}</small>
       </mat-option>
     </mat-autocomplete>
-  </mat-form-field>
+  
 </div>
-<button (click)="search()">search!</button>

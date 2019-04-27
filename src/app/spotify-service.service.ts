@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-const apiUrl = 'https://box.drafly.net:8000';
+const apiUrl = 'http://70fd5054.ngrok.io';
 
 @Injectable({
   providedIn: 'root'
