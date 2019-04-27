@@ -90,7 +90,7 @@ export class SpotifyService {
   }
 
   public async addSongsToPlaylist(playlistId, authToken, uris) {
-    return this.http.post(`${spotifyUrl}/v1/playlists/${playlistId}/tracks`,{}, {
+    return this.http.post(`${spotifyUrl}/v1/playlists/${playlistId}/tracks`, {}, {
       params: {
         uris: uris.join(',')
       },
