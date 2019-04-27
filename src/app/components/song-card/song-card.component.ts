@@ -55,6 +55,7 @@ const timeoutTime = 65;
 export class SongCardComponent implements OnInit, OnChanges {
 
   @Input() public song: SongItem;
+  @Input() public threshold: number;
   @Output() public addedVote = new EventEmitter();
 
   public sanitizedSongId: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl('');
@@ -92,12 +93,6 @@ export class SongCardComponent implements OnInit, OnChanges {
     this.currentState = 'initial';
     setTimeout(() => this.currentState = 'final', timeoutTime);
   }
-
-  private showItem() {
-    this.currentState = 'final';
-    setTimeout(() => this.currentState = 'initial', timeoutTime);
-  }
-
 
   private whenVotedFor() {
     this.clicked = false;

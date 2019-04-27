@@ -1,9 +1,24 @@
 mat-card {
-    display: flex;
     padding: 0;
     max-width: 370px;
     margin: 8px;
     background-color: #222;
+    display: flex;
+    flex-direction: column;
+}
+
+.stripe {
+    background-color: #1B9854;
+    height: 5px;
+}
+
+.stripe-bad {
+    background-color: red;
+    height: 5px;
+}
+
+.super-parent {
+    display: flex;
 }
 
 svg {
