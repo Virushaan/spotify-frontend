@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SpotifyService } from 'src/app/spotify-service.service';
@@ -19,7 +19,8 @@ export class SongCardComponent implements OnInit, OnChanges {
   constructor(
     private readonly sanitizer: DomSanitizer,
     private readonly spotifyService: SpotifyService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly changeDetectionRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -29,12 +30,14 @@ export class SongCardComponent implements OnInit, OnChanges {
     ).subscribe(vote => {
       this.song.vote += 1;
       this.whenVotedFor();
-      console.log(vote);
+      console.log('got vote from socket', vote);
     });
   }
 
   private whenVotedFor() {
+    this.clicked = false;
     this.clicked = true;
+    this.changeDetectionRef.detectChanges();
     setTimeout(() => {
       this.clicked = false;
     }, 1500);
