@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../spotify-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.scss']
 })
-export class PlaylistComponent {
+export class PlaylistComponent implements OnInit {
 
   public title = 'spotify-frontend';
 
@@ -23,11 +24,25 @@ export class PlaylistComponent {
     '0OgGn1ofaj55l2PcihQQGV'
   ];
 
-  constructor (private readonly spotifyService: SpotifyService) {
+  constructor(
+    private readonly spotifyService: SpotifyService,
+    private readonly router: Router
+  ) { }
+
+  ngOnInit() {
+    this.populateSongList();
+  }
+
+  private async populateSongList() {
+    const playlistId = this.router.url.substr(1);
+    const newSongObj = await this.spotifyService.getPlaylist(playlistId) as any;
+    const newSongs = newSongObj.songs.map(arg => arg.id);
+    console.log('new songs', newSongs);
+    this.songList = [...newSongs, ...this.songList];
   }
 
   public updateThreshold(newThreshold) {
-    console.log(newThreshold)
+    console.log(newThreshold);
   }
 
   public test() {
