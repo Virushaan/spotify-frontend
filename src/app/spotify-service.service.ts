@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-const apiUrl = 'http://localhost:5000';
+const apiUrl = 'http://d33f25c4.ngrok.io';
 const spotifyUrl = 'https://accounts.spotify.com';
 
 @Injectable({
@@ -66,7 +66,7 @@ export class SpotifyService {
       params: {
         client_id: 'd9682bef66264be29d0a69b1b9ce81f1',
         response_type: 'token',
-        redirect_uri: window.location.href,
+        redirect_uri: 'http://localhost:4200/generate/playlist',
         state: playlistId,
       },
     });

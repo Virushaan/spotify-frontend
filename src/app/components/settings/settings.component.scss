@@ -8,6 +8,11 @@
     align-items: center;
     background-color: white;
     width: 600px;
-    margin: 0 auto;
     padding: 10px;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 100%;
+    margin-top: -10px;
+    padding-top: 16px;
 }
