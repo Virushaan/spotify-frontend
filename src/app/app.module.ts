@@ -20,6 +20,7 @@ import { GeneratePlaylistComponent } from './generate-playlist/generate-playlist
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
+  { path: 'generate/callback', component: GeneratePlaylistComponent },
   { path: ':id', component: PlaylistComponent },
 ];
 
