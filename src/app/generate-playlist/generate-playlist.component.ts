@@ -43,9 +43,19 @@ export class GeneratePlaylistComponent implements OnInit {
   public async createPlaylist() {
     const response = await this.spotifyService.createSpotifyPlaylist(this.userId, 'testPlaylist', this.hashes.access_token);
     console.log('created playlist', response);
-    // this.addSongs((response as any).id);
+    this.addSongs((response as any).id);
   }
 
-  // public async addSongs
+  public async addSongs(playlistId: string) {
+    const [playlistCode, thresholdStr] = this.hashes.state.split(',');
+    const threshold = parseInt(thresholdStr, 10);
+    const playlist = await this.spotifyService.getPlaylist(playlistCode) as any;
+    const uris = playlist.songs.map(arg => ({
+      id: arg.id,
+      votes: parseInt(arg.votes, 10)
+    })).filter(song => song.votes >= threshold).map(song => "spotify:track:" + song.id);
+    console.log('Adding:', uris);
+    const response = await this.spotifyService.addSongsToPlaylist(playlistId, this.hashes.access_token, uris);
+  }
 
 }
