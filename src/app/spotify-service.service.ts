@@ -10,8 +10,10 @@ export class SpotifyService {
 
   constructor(private http: HttpClient) { }
 
-  public async createPlaylist() {
-    return await this.http.post(`${apiUrl}/create`, {}).toPromise();
+  public async createPlaylist(playlistName: string) {
+    return await this.http.post(`${apiUrl}/create`, {
+      name: playlistName
+    }).toPromise();
   }
 
   public async vote(playlistId: string, songId: string) {

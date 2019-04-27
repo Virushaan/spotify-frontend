@@ -49,7 +49,7 @@ export class PlaylistComponent implements OnInit {
 
   public test() {
     console.log('test');
-    this.spotifyService.createPlaylist();
+    // this.spotifyService.createPlaylist();
   }
 
 }
