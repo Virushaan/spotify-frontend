@@ -7,6 +7,9 @@
   <iframe [src]="sanitizedSongId" width="250" height="330" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
   <mat-card-actions>
     <button (click)="vote()" mat-button>Vote</button>
+    <pre>
+      {{ song.votes }}
+    </pre>
     <div class="float-num" [ngClass]="{'float-num-animated': clicked}">+1</div>
   </mat-card-actions>
 </mat-card>

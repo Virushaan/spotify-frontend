@@ -27,6 +27,7 @@ export class SongCardComponent implements OnInit, OnChanges {
     .pipe(
       filter(songId => songId === this.song.id)
     ).subscribe(vote => {
+      this.song.vote += 1;
       this.whenVotedFor();
       console.log(vote);
     });
