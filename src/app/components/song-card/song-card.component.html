@@ -1,4 +1,4 @@
-<mat-card class="example-card mat-card-hop">
+<mat-card class="example-card" [ngClass]="{'mat-card-hop': clicked}">
   <!-- <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title></mat-card-title>
@@ -6,6 +6,6 @@
   </mat-card-header> -->
   <iframe [src]="sanitizedSongId" width="250" height="330" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
   <mat-card-actions>
-    <button mat-button>Vote</button>
+    <button (click)="clicked=true" mat-button>Vote</button>
   </mat-card-actions>
 </mat-card>

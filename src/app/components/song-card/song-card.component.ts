@@ -11,6 +11,7 @@ export class SongCardComponent implements OnInit, OnChanges {
 
   @Input() public songId: string;
   public sanitizedSongId: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl('');
+  public clicked = false;
 
   constructor( private readonly sanitizer: DomSanitizer) { }
 
