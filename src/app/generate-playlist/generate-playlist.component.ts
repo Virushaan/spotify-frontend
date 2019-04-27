@@ -56,6 +56,7 @@ export class GeneratePlaylistComponent implements OnInit {
     })).filter(song => song.votes >= threshold).map(song => "spotify:track:" + song.id);
     console.log('Adding:', uris);
     const response = await this.spotifyService.addSongsToPlaylist(playlistId, this.hashes.access_token, uris);
+    console.log(response);
   }
 
 }
