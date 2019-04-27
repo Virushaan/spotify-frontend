@@ -1,8 +1,8 @@
-<mat-card class="result">
-    <mat-card-content>
-      <h2 class="example-h2">Result</h2>
-      <mat-slider
-        [thumbLabel]="true"
-      ></mat-slider>
-    </mat-card-content>
-  </mat-card>
+<div class="settings-container">
+  <p>Threshold: {{ thresholdValue }}</p>
+  <mat-slider
+    [thumbLabel]="true"
+    [(ngModel)]="thresholdValue"
+    (ngModelChange)="updateThreshold($event)"
+  ></mat-slider>
+</div>
