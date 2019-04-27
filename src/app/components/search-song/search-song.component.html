@@ -1,16 +1,18 @@
-<mat-form-field>
-  <input 
-    type="text" 
-    matInput 
-    [formControl]="searchControl" 
-    [matAutocomplete]="auto">
-  <mat-autocomplete
-    #auto="matAutocomplete">
-    <mat-option 
-      *ngFor="let state of filteredStates | async" 
-      [value]=state.name>
-      {{state.name}}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-{{ test }}
+<div class="search-song-container">
+  <mat-form-field>
+    <input 
+      type="text" 
+      matInput 
+      [formControl]="searchControl"
+      placeholder="Search song..." 
+      [matAutocomplete]="auto">
+    <mat-autocomplete
+      #auto="matAutocomplete">
+      <mat-option 
+        *ngFor="let state of filteredStates | async" 
+        [value]=state.name>
+        {{state.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
