@@ -1,8 +1,1 @@
-<div class="main-container">
-    <app-search-song></app-search-song>
-    <app-settings (thresholdUpdated)="updateThreshold($event)"></app-settings>
-    <div class="song-card-container">
-        <app-song-card *ngFor="let song of songList" [songId]="song"></app-song-card>
-    </div>
-</div>
-<button (click)="test()">hi</button>
+<router-outlet></router-outlet>

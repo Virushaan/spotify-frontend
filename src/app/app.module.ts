@@ -13,13 +13,23 @@ import { SearchSongComponent } from './components/search-song/search-song.compon
 import { SettingsComponent } from './components/settings/settings.component';
 import { SongCardComponent } from './components/song-card/song-card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { LandingComponent } from './landing/landing.component';
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: LandingComponent },
+  { path: ':id', component: PlaylistComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchSongComponent,
     SongCardComponent,
-    SettingsComponent
+    SettingsComponent,
+    PlaylistComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +44,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatButtonModule,
     MatSliderModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
