@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SpotifyService } from '../spotify-service.service';
 import { Router } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core/src/render3/jit/compiler_facade_interface';
+import { ChangeDetectorStatus } from '@angular/core/src/change_detection/constants';
 
 export interface SongItem {
   id: string;
-  vote: number;
+  votes: number;
 }
 
 @Component({
@@ -37,7 +38,7 @@ export class PlaylistComponent implements OnInit {
       if (this.songList.findIndex(arg => arg.id === newSongId) === -1) {
         this.addToSongList({
           id: newSongId,
-          vote: 1
+          votes: 1
         });
         // this.songList.unshift();
         // this.songList.push({
@@ -58,11 +59,36 @@ export class PlaylistComponent implements OnInit {
   private async populateSongList() {
     const newSongObj = await this.spotifyService.getPlaylist(this.playlistId) as any;
     console.log(newSongObj);
-    this.songList = newSongObj.songs;
+    this.songList = newSongObj.songs.map(arg => ({
+      id: arg.id,
+      votes: parseInt(arg.votes, 10)
+    })).sort((a, b) => b.votes - a.votes);
+    console.log('onInit load', this.songList);
   }
 
   public updateThreshold(newThreshold) {
     console.log(newThreshold);
   }
+
+  public incrementVote(songId: string) {
+    console.log('INCREMENT SONGID', songId);
+    const songIndex = this.songList.findIndex(arg => arg.id === songId);
+    console.log(this.songList[songIndex]);
+    console.log(this.songList, 'start');
+    this.songList[songIndex].votes += 1;
+    const oldSongOrder = this.songList.map((s) => s.id);
+    const newSongOrder = Array.from(this.songList).sort((a, b) => b.votes - a.votes);
+    const changed = newSongOrder.filter((s, i) => (oldSongOrder[i] !== s.id));
+    console.log('CHANGED', changed);
+    changed.forEach(arg => {
+      this.spotifyService.hideNewCard(arg.id);
+    });
+    this.songList.sort((a, b) => b.votes - a.votes);
+  }
+
+  // trackByFn(index, item) {
+  //   // console.log('trackby', item);
+  //   return item.id; // or item.id
+  // }
 
 }

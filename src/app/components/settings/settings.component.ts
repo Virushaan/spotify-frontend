@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public updateThreshold(newThreshold) {
-    this.thresholdUpdated.emit(this.thresholdValue)
+    this.thresholdUpdated.emit(this.thresholdValue);
   }
 
   public makePlaylist() {
