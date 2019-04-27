@@ -10,3 +10,15 @@ mat-card-actions {
         margin: 0 8px;
     }
 }
+
+@keyframes hop {
+    0%      {top: 0px;}
+    100%     {top: -5px;}
+}
+
+.mat-card-hop {
+    animation-name: hop;
+    animation-duration: 0.2s;
+    animation-direction: alternate;
+    animation-timing-function: ease-out;
+}
