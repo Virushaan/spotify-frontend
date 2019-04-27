@@ -1,10 +1,18 @@
-mat-form-field {
-    max-width: 500px;
-    margin-left: 32px;
-    margin-right: 32px;
+input {
+    width: 400px;
+    border-radius: 3px;
+    padding: 0px 8px;
+    height: 30px;
     flex-grow: 1;
     margin: auto;
+    border: 1px solid #ccc;
 }
+
+// :host ::ng-deep {
+//     .mat-form-field-infix {
+//         border: 1px solid black;
+//     }U
+// }
 
 .search-song-container {
     display: flex;

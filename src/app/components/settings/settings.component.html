@@ -1,8 +1,11 @@
 <div class="settings-container">
+  <app-search-song (addedSong)="songList.unshift($event)"></app-search-song>
   <p>Threshold: {{ thresholdValue }}</p>
   <mat-slider
     [thumbLabel]="true"
     [(ngModel)]="thresholdValue"
     (ngModelChange)="updateThreshold($event)"
+    min=1
+    max=20
   ></mat-slider>
 </div>

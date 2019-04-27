@@ -37,7 +37,7 @@ export class SongCardComponent implements OnInit, OnChanges {
     this.clicked = true;
     setTimeout(() => {
       this.clicked = false;
-    }, 1500);
+    }, 250);
   }
 
   ngOnChanges(changes: SimpleChanges) {
