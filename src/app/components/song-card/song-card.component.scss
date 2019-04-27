@@ -12,19 +12,17 @@ mat-card-actions {
 }
 
 @keyframes floatAway {
-    0%      {opacity: 0; top: 10px; left: 20px;}
+    0%      {opacity: 0; top: 330px; left: 20px;}
     20%     {opacity: 0.8;}
     50%     {opacity: 1;}
     80%     {opacity: 0.8;}
-    100%    {opacity: 0; top: -140px; left: 70px;}
+    100%    {opacity: 0; top: 140px; left: 70px;}
 }
 
 .float-num {
     display: inline-block;
     opacity: 0;
-    position: relative;
-    top: 5px;
-    left: 28px;
+    position: absolute;
 }
 
 .float-num-animated {
