@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SpotifyService } from '../spotify-service.service';
 import { Router } from '@angular/router';
+import { ChangeDetectionStrategy } from '@angular/core/src/render3/jit/compiler_facade_interface';
 
 export interface SongItem {
   id: string;
@@ -22,7 +23,8 @@ export class PlaylistComponent implements OnInit {
 
   constructor(
     private readonly spotifyService: SpotifyService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly changeDetectionRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class PlaylistComponent implements OnInit {
 
   public addToSongList(newSong) {
     this.songList.unshift(newSong);
+    this.changeDetectionRef.detectChanges();
   }
 
   private async populateSongList() {
