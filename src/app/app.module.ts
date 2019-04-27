@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchSongComponent } from './components/search-song/search-song.component';
@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     // BrowserAnimationsModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     MatAutocompleteModule,
     MatOptionModule,
     MatFormFieldModule,

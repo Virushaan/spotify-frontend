@@ -4,11 +4,29 @@ import { Router } from '@angular/router';
 import { SpotifyService } from 'src/app/spotify-service.service';
 import { SongItem } from 'src/app/playlist/playlist.component';
 import { filter } from 'rxjs/operators';
+import { trigger, transition, style, animate } from '@angular/animations';
+
+const fadeInAnimation =
+    // trigger name for attaching this animation to an element using the [@triggerName] syntax
+    trigger('fadeInAnimation', [
+
+        // route 'enter' transition
+        transition(':enter', [
+
+            // css styles at start of transition
+            style({ opacity: 0 }),
+
+            // animation and styles at end of transition
+            animate('2s', style({ opacity: 1 }))
+        ]),
+    ]);
 
 @Component({
   selector: 'app-song-card',
   templateUrl: './song-card.component.html',
-  styleUrls: ['./song-card.component.scss']
+  styleUrls: ['./song-card.component.scss'],
+  animations: [fadeInAnimation],
+  host: { '[@fadeInAnimation]': '' }
 })
 export class SongCardComponent implements OnInit, OnChanges {
 

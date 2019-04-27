@@ -2,7 +2,7 @@
     <app-search-song (addedSong)="songList.unshift($event)"></app-search-song>
     <app-settings (thresholdUpdated)="updateThreshold($event)"></app-settings>
     <div class="song-card-container">
-        <app-song-card *ngFor="let song of songList;trackBy: trackByFn" [song]="song" (addedVote)="incrementVote($event)"></app-song-card>
+        <app-song-card *ngFor="let song of songList" [song]="song" (addedVote)="incrementVote($event)"></app-song-card>
     </div>
 </div>
 <button (click)="test()">hi</button>

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SpotifyService } from '../spotify-service.service';
 import { Router } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core/src/render3/jit/compiler_facade_interface';
+import { ChangeDetectorStatus } from '@angular/core/src/change_detection/constants';
 
 export interface SongItem {
   id: string;
@@ -75,16 +76,15 @@ export class PlaylistComponent implements OnInit {
     console.log(this.songList[songIndex]);
     console.log(this.songList, 'start');
     this.songList[songIndex].votes += 1;
+    const oldSongOrder = this.songList.map((s) => s.id);
     this.songList.sort((a, b) => b.votes - a.votes);
-    this.songList = Array.from(this.songList);
-    console.log(this.songList, 'end');
-    // this.songList = Object.assign({}, this.songList);
-    // this.changeDetectionRef.detectChanges();
+    const changed = this.songList.filter((s, i) => (oldSongOrder[i] !== s.id));
+
   }
 
-  trackByFn(index, item) {
-    // console.log('trackby', item);
-    return item.id; // or item.id
-  }
+  // trackByFn(index, item) {
+  //   // console.log('trackby', item);
+  //   return item.id; // or item.id
+  // }
 
 }
