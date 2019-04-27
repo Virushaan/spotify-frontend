@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {map, startWith, debounceTime, filter, tap} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { SpotifyService } from 'src/app/spotify-service.service';
+import { Router } from '@angular/router';
 
 export interface SongSuggestion {
   name: string;
@@ -22,7 +23,7 @@ export interface Artists {
 
 export class SearchSongComponent implements OnInit {
 
-  public test: string;
+  @Output() public addedSong = new EventEmitter();
 
   public searchControl = new FormControl();
 
@@ -31,8 +32,10 @@ export class SearchSongComponent implements OnInit {
   // TODO prefill
   public songNames: SongSuggestion[] = [];
 
-  constructor( private readonly spotifyService: SpotifyService ) {
-  }
+  constructor(
+    private readonly spotifyService: SpotifyService,
+    private readonly router: Router
+  ) { }
 
   ngOnInit() {
     this.searchControl.valueChanges
@@ -50,8 +53,10 @@ export class SearchSongComponent implements OnInit {
     });
   }
 
-  public addSong(song) {
-    console.log(song);
+  public addSong(song: SongSuggestion) {
+    const playlistId = this.router.url.substr(1);
+    this.addedSong.emit(song.id);
+    this.spotifyService.vote(playlistId, song.id);
   }
 
   public async search(query) {

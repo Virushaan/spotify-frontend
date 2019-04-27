@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SongSuggestion } from './components/search-song/search-song.component';
+import { Injectable } from '@angular/core';
 
 const apiUrl = 'https://box.drafly.net:8000';
 
@@ -17,16 +16,20 @@ export class SpotifyService {
   }
 
   public async vote(playlistId: string, songId: string) {
-    const voted = await this.http.post(`${apiUrl}/vote`, {
-      playlist: playlistId,
-      song: songId
-    },
-    {responseType: 'text'}
+    await this.http.post(`${apiUrl}/vote`,
+      {
+        playlist: playlistId,
+        song: songId
+      },
+      {responseType: 'text'}
     ).toPromise();
-    console.log('voted', voted);
   }
 
   public async search(query: string): Promise<any> {
-    return this.http.post(`${apiUrl}/spotify/search`, {query}).toPromise();
+    return this.http.get(`${apiUrl}/spotify/search`, {params: {query}}).toPromise();
+  }
+
+  public async getPlaylist(playlistId: string) {
+    return this.http.get(`${apiUrl}/songs`, {params: {playlist: playlistId}}).toPromise();
   }
 }

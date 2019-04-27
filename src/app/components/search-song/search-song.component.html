@@ -12,7 +12,7 @@
         *ngFor="let state of filteredStates | async"
         (click)="addSong(state)"
         [value]=state.name>
-        <img height="20px" src={{state.album.images[2].url}}/>
+        <!-- <img height="20px" src={{state.album.images[2].url}}/> -->
         <p>{{state.name}}</p>
         <!-- <p *ngFor="let artist of state.artists">{{artist.name}}</p> -->
       </mat-option>
