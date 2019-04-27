@@ -1,1 +1,6 @@
-<iframe src="https://open.spotify.com/embed/playlist/4h6L55V1dYc43JuQzxbBl2" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<div class="generated-playlist-container">
+    <a [href]="playlistUrl">
+        <button class="spotify-button">GO TO PLAYLIST</button>
+    </a>
+    <iframe [src]="sanitizedPlaylistUrl" width="400" height="600" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>

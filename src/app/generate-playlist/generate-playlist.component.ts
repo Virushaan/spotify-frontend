@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../spotify-service.service';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 interface Hash {
   access_token: string;
@@ -17,9 +18,16 @@ interface Hash {
 export class GeneratePlaylistComponent implements OnInit {
   private hashes: Partial<Hash> = {}
   private userId: string;
+  public sanitizedPlaylistUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl('');
+  public playlistUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustHtml('');
+  public normalUrl: string;
+  public urlReady = false;
+  public playlistName: string;
+  
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly spotifyService: SpotifyService
+    private readonly spotifyService: SpotifyService,
+    private readonly sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
@@ -41,21 +49,27 @@ export class GeneratePlaylistComponent implements OnInit {
   }
 
   public async createPlaylist() {
-    const response = await this.spotifyService.createSpotifyPlaylist(this.userId, 'testPlaylist', this.hashes.access_token);
+    const [playlistCode, thresholdStr] = this.hashes.state.split(',');
+    const playlist = await this.spotifyService.getPlaylist(playlistCode) as any;
+    this.playlistName = playlist.name;
+    const response = await this.spotifyService.createSpotifyPlaylist(this.userId, playlist.name, this.hashes.access_token);
     console.log('created playlist', response);
-    this.addSongs((response as any).id);
+    this.addSongs((response as any).id, playlist.songs);
   }
 
-  public async addSongs(playlistId: string) {
+  public async addSongs(playlistId: string, songs: any) {
     const [playlistCode, thresholdStr] = this.hashes.state.split(',');
     const threshold = parseInt(thresholdStr, 10);
-    const playlist = await this.spotifyService.getPlaylist(playlistCode) as any;
-    const uris = playlist.songs.map(arg => ({
+    const uris = songs.map(arg => ({
       id: arg.id,
       votes: parseInt(arg.votes, 10)
     })).filter(song => song.votes >= threshold).map(song => "spotify:track:" + song.id);
     console.log('Adding:', uris);
     const response = await this.spotifyService.addSongsToPlaylist(playlistId, this.hashes.access_token, uris);
+    this.sanitizedPlaylistUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://open.spotify.com/embed/playlist/' + playlistId);
+    this.playlistUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/playlist/${playlistId}`)
+    this.normalUrl = `https://open.spotify.com/playlist/${playlistId}`;
+    this.urlReady = true;
     console.log(response);
   }
 
