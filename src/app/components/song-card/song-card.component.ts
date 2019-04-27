@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SpotifyService } from 'src/app/spotify-service.service';
+import { SongItem } from 'src/app/playlist/playlist.component';
 
 @Component({
   selector: 'app-song-card',
@@ -10,7 +11,7 @@ import { SpotifyService } from 'src/app/spotify-service.service';
 })
 export class SongCardComponent implements OnInit, OnChanges {
 
-  @Input() public songId: string;
+  @Input() public song: SongItem;
   public sanitizedSongId: SafeResourceUrl = this.sanitizer.bypassSecurityTrustUrl('');
   public clicked = false;
 
@@ -31,15 +32,15 @@ export class SongCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.songId) {
-      this.sanitizedSongId = this.sanitizer.bypassSecurityTrustResourceUrl('https://open.spotify.com/embed/track/' + this.songId);
+    if (changes.song) {
+      this.sanitizedSongId = this.sanitizer.bypassSecurityTrustResourceUrl('https://open.spotify.com/embed/track/' + this.song.id);
     }
   }
 
   public vote() {
     const playlistId = this.router.url.substr(1);
     this.whenVotedFor();
-    this.spotifyService.vote(playlistId, this.songId);
+    this.spotifyService.vote(playlistId, this.song.id);
   }
 
 }

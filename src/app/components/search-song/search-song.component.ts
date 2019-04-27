@@ -55,7 +55,7 @@ export class SearchSongComponent implements OnInit {
 
   public addSong(song: SongSuggestion) {
     const playlistId = this.router.url.substr(1);
-    this.addedSong.emit(song.id);
+    this.addedSong.emit({id: song.id, votes: 1});
     this.spotifyService.vote(playlistId, song.id);
   }
 
