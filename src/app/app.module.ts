@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { LandingComponent } from './landing/landing.component';
 import { Routes, RouterModule } from '@angular/router';
+import { GeneratePlaylistComponent } from './generate-playlist/generate-playlist.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     SongCardComponent,
     SettingsComponent,
     PlaylistComponent,
-    LandingComponent
+    LandingComponent,
+    GeneratePlaylistComponent
   ],
   imports: [
     BrowserModule,

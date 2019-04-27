@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-const apiUrl = 'http://70fd5054.ngrok.io';
+const apiUrl = 'http://localhost:5000';
 
 @Injectable({
   providedIn: 'root'
