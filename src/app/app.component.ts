@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SpotifyService } from './spotify-service.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,15 @@ export class AppComponent {
     'https://open.spotify.com/embed/track/0OgGn1ofaj55l2PcihQQGV'
   ];
 
+  constructor (private readonly spotifyService: SpotifyService) {
+  }
+
   public updateThreshold(newThreshold) {
     console.log(newThreshold)
+  }
+
+  public test() {
+    console.log('test');
+    this.spotifyService.createPlaylist();
   }
 }

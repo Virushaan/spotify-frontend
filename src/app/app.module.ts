@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { SearchSongComponent } from './components/search-song/search-song.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SongCardComponent } from './components/song-card/song-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SongCardComponent } from './components/song-card/song-card.component';
     MatCardModule,
     MatButtonModule,
     MatSliderModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
