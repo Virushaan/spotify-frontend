@@ -52,7 +52,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   public addToSongList(newSong) {
-    this.songList.unshift(newSong);
+    this.songList.push(newSong);
     this.changeDetectionRef.detectChanges();
   }
 
@@ -76,14 +76,14 @@ export class PlaylistComponent implements OnInit {
     console.log(this.songList[songIndex]);
     console.log(this.songList, 'start');
     this.songList[songIndex].votes += 1;
-    const oldSongOrder = this.songList.map((s) => s.id);
-    const newSongOrder = Array.from(this.songList).sort((a, b) => b.votes - a.votes);
-    const changed = newSongOrder.filter((s, i) => (oldSongOrder[i] !== s.id));
-    console.log('CHANGED', changed);
-    changed.forEach(arg => {
-      this.spotifyService.hideNewCard(arg.id);
-    });
-    this.songList.sort((a, b) => b.votes - a.votes);
+    // const oldSongOrder = this.songList.map((s) => s.id);
+    // const newSongOrder = Array.from(this.songList).sort((a, b) => b.votes - a.votes);
+    // const changed = newSongOrder.filter((s, i) => (oldSongOrder[i] !== s.id));
+    // console.log('CHANGED', changed);
+    // changed.forEach(arg => {
+    //   this.spotifyService.hideNewCard(arg.id);
+    // });
+    // this.songList.sort((a, b) => b.votes - a.votes);
   }
 
   // trackByFn(index, item) {
