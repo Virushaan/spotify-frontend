@@ -18,6 +18,13 @@ export class SongCardComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  private whenVotedFor() {
+    this.clicked = true;
+    setTimeout(() => {
+      this.clicked = false;
+    }, 1500);
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.songId) {
       this.sanitizedSongId = this.sanitizer.bypassSecurityTrustResourceUrl(this.songId);
