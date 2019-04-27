@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SongSuggestion } from './components/search-song/search-song.component';
 
-const apiUrl = 'http://d58fcb12.ngrok.io';
+const apiUrl = 'http://box.drafly.net:8000';
 
 @Injectable({
   providedIn: 'root'
