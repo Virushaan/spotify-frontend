@@ -23,6 +23,13 @@ export class SongCardComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  private whenVotedFor() {
+    this.clicked = true;
+    setTimeout(() => {
+      this.clicked = false;
+    }, 1500);
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.songId) {
       this.sanitizedSongId = this.sanitizer.bypassSecurityTrustResourceUrl('https://open.spotify.com/embed/track/' + this.songId);
@@ -31,6 +38,7 @@ export class SongCardComponent implements OnInit, OnChanges {
 
   public vote() {
     const playlistId = this.router.url.substr(1);
+    this.whenVotedFor();
     this.spotifyService.vote(playlistId, this.songId);
   }
 
