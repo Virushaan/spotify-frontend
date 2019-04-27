@@ -32,17 +32,6 @@ export class SearchSongComponent implements OnInit {
   public songNames: SongSuggestion[] = [];
 
   constructor( private readonly spotifyService: SpotifyService ) {
-    this.filteredStates = this.searchControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(state => state ? this._filterStates(state) : this.songNames.slice())
-    );
-  }
-
-  private _filterStates(value: string): SongSuggestion[] {
-    const filterValue = value.toLowerCase();
-
-    return this.songNames.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   ngOnInit() {
@@ -67,7 +56,8 @@ export class SearchSongComponent implements OnInit {
     this.songNames = songs.songs.map(arg => ({
       name: arg.name,
       artists: arg.artists,
-      id: arg.id
+      id: arg.id,
+      album: arg.album
     }));
     console.log(this.songNames);
     this.filteredStates = of(this.songNames);
