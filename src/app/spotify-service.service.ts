@@ -31,4 +31,9 @@ export class SpotifyService {
   public async getPlaylist(playlistId: string) {
     return this.http.get(`${apiUrl}/songs`, {params: {playlist: playlistId}}).toPromise();
   }
+
+  public getVoteStream(playlistId: string) {
+    const source = new EventSource(`${apiUrl}/stream?playlist=${playlistId}`);
+    source.onmessage = (arg) => console.log(arg.data);
+  }
 }

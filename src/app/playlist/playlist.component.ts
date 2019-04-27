@@ -30,6 +30,8 @@ export class PlaylistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const playlistId = this.router.url.substr(1);
+    this.spotifyService.getVoteStream(playlistId);
     this.populateSongList();
   }
 
