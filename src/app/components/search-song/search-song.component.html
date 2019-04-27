@@ -8,13 +8,13 @@
       [matAutocomplete]="auto">
     <mat-autocomplete
       #auto="matAutocomplete">
-      <mat-option 
+      <mat-option class="search-option"
         *ngFor="let state of filteredStates | async"
         (click)="addSong(state)"
         [value]=state.name>
-        <img height="20px" src={{state.album.images[2].url}}/>
-        <p>{{state.name}}</p>
-        <!-- <p *ngFor="let artist of state.artists">{{artist.name}}</p> -->
+        <img class="example-option-img" aria-hidden [src]="state.album.images[0].url" height="25">
+        <span>{{state.name}}</span> |
+        <small>{{getArtistsString(state.artists)}}</small>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

@@ -67,4 +67,7 @@ export class SearchSongComponent implements OnInit {
     this.filteredStates = of(this.songNames);
   }
 
+  public getArtistsString(artists) {
+    return artists.map(artist => artist.name).join(', ');
+  }
 }
