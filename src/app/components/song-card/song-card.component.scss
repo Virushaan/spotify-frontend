@@ -12,13 +12,20 @@ mat-card-actions {
 }
 
 @keyframes hop {
-    0%      {top: 0px;}
-    100%     {top: -5px;}
+    0%      {top: 0px; transform: rotate(0deg);}
+    12%     {top: -5.3px;transform: rotate(-1deg);}
+    25%     {top: -9px;transform: rotate(0deg);}
+    37%     {top: -11.2px;transform: rotate(1deg);}
+    50%     {top: -12px;transform: rotate(0deg);}
+    63%     {top: -11.2px;transform: rotate(-1deg);}
+    75%     {top: -9px;transform: rotate(0deg);}
+    87%     {top: -5.3px;transform: rotate(1deg);}
+    100%     {top: 0px;transform: rotate(0deg);}
 }
 
 .mat-card-hop {
     animation-name: hop;
-    animation-duration: 0.2s;
-    animation-direction: alternate;
-    animation-timing-function: ease-out;
+    animation-duration: 0.25s;
+    animation-direction: e;
+    animation-timing-function: linear;
 }
