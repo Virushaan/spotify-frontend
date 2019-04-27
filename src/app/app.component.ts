@@ -20,4 +20,8 @@ export class AppComponent {
     'https://open.spotify.com/embed/track/7bdYxWPCs46dQ0XLwySOyv',
     'https://open.spotify.com/embed/track/0OgGn1ofaj55l2PcihQQGV'
   ];
+
+  public updateThreshold(newThreshold) {
+    console.log(newThreshold)
+  }
 }
