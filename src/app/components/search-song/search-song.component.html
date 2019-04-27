@@ -1,3 +1,16 @@
-<p>
-  search-song works!
-</p>
+<mat-form-field>
+  <input 
+    type="text" 
+    matInput 
+    [formControl]="searchControl" 
+    [matAutocomplete]="auto">
+  <mat-autocomplete
+    #auto="matAutocomplete">
+    <mat-option 
+      *ngFor="let state of filteredStates | async" 
+      [value]=state.name>
+      {{state.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+{{ test }}
