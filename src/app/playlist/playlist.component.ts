@@ -21,7 +21,7 @@ export class PlaylistComponent implements OnInit {
 
   public songList: SongItem[] = [];
   public playlistId = this.router.url.substr(1);
-  public threshold = 100;
+  public threshold = 1;
 
   constructor(
     private readonly spotifyService: SpotifyService,

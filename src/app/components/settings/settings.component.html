@@ -1,5 +1,5 @@
 <div class="settings-container">
-  <app-search-song (addedSong)="songList.unshift($event)"></app-search-song>
+  <app-search-song></app-search-song>
   <!-- <mat-slider
   [thumbLabel]="true"
   [(ngModel)]="thresholdValue"
@@ -7,7 +7,7 @@
   min=1
   max=20
   ></mat-slider> -->
-  <input type="range" min="1" max="20" [(ngModel)]="thresholdValue" class="slider">
+  <input type="range" min="1" max="20" [(ngModel)]="thresholdValue" (ngModelChange)="updateThreshold($event)" class="slider">
   <p class="threshold">Threshold: {{ thresholdValue }}</p>
-  <button (click)="gotoAuth()" class="spotify-button">MAKE A PLAYLIST</button>
+  <button (click)="gotoAuth()" class="spotify-button">GENERATE PLAYLIST</button>
 </div>

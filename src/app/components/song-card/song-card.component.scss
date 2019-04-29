@@ -10,11 +10,13 @@ mat-card {
 .stripe {
     background-color: #1DB954;
     height: 5px;
+    margin-top: -5px;
 }
 
 .stripe-bad {
     background-color: red;
     height: 5px;
+    margin-top: -5px;
 }
 
 .super-parent {

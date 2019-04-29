@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public updateThreshold(newThreshold) {
+    console.log('updated threshold')
     this.thresholdUpdated.emit(this.thresholdValue);
   }
 
